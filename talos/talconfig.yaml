@@ -1,0 +1,119 @@
+---
+clusterName: home-cluster
+talosVersion: v1.3.3
+kubernetesVersion: v1.26.0
+endpoint: https://192.168.1.104:6443
+allowSchedulingOnMasters: true
+cniConfig:
+  name: none
+nodes:
+  - hostname: kmaster0
+    ipAddress: 192.168.1.104
+    installDiskSelector:
+      size: ">= 99GB"
+    controlPlane: true
+    nodeLabels:
+      env: test
+    kernelModules:
+      - name: br_netfilter
+        parameters:
+          - nf_conntrack_max=131072
+    nameservers:
+      - 10.9.4.4
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.1.104/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+        vip:
+          ip: 192.168.1.254
+
+  - hostname: kmaster1
+    ipAddress: 192.168.1.106
+    installDiskSelector:
+      size: ">= 99GB"
+    controlPlane: true
+    nodeLabels:
+      env: test
+    kernelModules:
+      - name: br_netfilter
+        parameters:
+          - nf_conntrack_max=131072
+    nameservers:
+      - 10.9.4.4
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.1.106/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+        vip:
+          ip: 192.168.1.254
+  - hostname: kmaster2
+    ipAddress: 192.168.1.107
+    installDiskSelector:
+      size: ">= 99GB"
+    controlPlane: true
+    nodeLabels:
+      env: test
+    kernelModules:
+      - name: br_netfilter
+        parameters:
+          - nf_conntrack_max=131072
+    nameservers:
+      - 10.9.4.4
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.1.107/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1
+        vip:
+          ip: 192.168.1.254
+controlPlane:
+  patches:
+    - |-
+      - op: add
+        path: /machine/kubelet/extraArgs
+        value:
+          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,CronJobTimeZone=true,
+          rotate-server-certificates: "true"
+      - op: add
+        path: /cluster/controllerManager/extraArgs
+        value:
+          bind-address: 0.0.0.0
+      - op: add
+        path: /cluster/scheduler/extraArgs
+        value:
+          bind-address: 0.0.0.0
+      - op: add
+        path: /cluster/proxy/extraArgs
+        value:
+          bind-address: 0.0.0.0
+    - |-
+      machine:
+        time:
+          disabled: false
+          servers:
+            - time.cloudflare.com
+worker:
+  patches:
+    - |-
+      - op: add
+        path: /machine/kubelet/extraArgs
+        value:
+          feature-gates: GracefulNodeShutdown=false,MixedProtocolLBService=false,CronJobTimeZone=true
+          rotate-server-certificates: "true"
+    - |-
+      machine:
+        time:
+          disabled: false
+          servers:
+            - time.cloudflare.com
