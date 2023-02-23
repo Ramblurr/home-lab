@@ -1,6 +1,6 @@
 ---
 clusterName: home-cluster
-talosVersion: v1.3.3
+talosVersion: v1.3.5
 kubernetesVersion: v1.26.0
 endpoint: https://192.168.1.104:6443
 allowSchedulingOnMasters: true
@@ -8,6 +8,7 @@ cniConfig:
   name: none
 nodes:
   - hostname: kmaster0
+    disableSearchDomain: true
     ipAddress: 192.168.1.104
     installDiskSelector:
       size: ">= 99GB"
@@ -32,6 +33,7 @@ nodes:
           ip: 192.168.1.254
 
   - hostname: kmaster1
+    disableSearchDomain: true
     ipAddress: 192.168.1.106
     installDiskSelector:
       size: ">= 99GB"
@@ -55,6 +57,7 @@ nodes:
         vip:
           ip: 192.168.1.254
   - hostname: kmaster2
+    disableSearchDomain: true
     ipAddress: 192.168.1.107
     installDiskSelector:
       size: ">= 99GB"
@@ -84,6 +87,7 @@ controlPlane:
         path: /machine/kubelet/extraArgs
         value:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,CronJobTimeZone=true,
+          #rotate-server-certificates: "false"
           rotate-server-certificates: "true"
       - op: add
         path: /cluster/controllerManager/extraArgs
@@ -110,7 +114,8 @@ worker:
         path: /machine/kubelet/extraArgs
         value:
           feature-gates: GracefulNodeShutdown=false,MixedProtocolLBService=false,CronJobTimeZone=true
-          rotate-server-certificates: "true"
+          rotate-server-certificates: "false"
+          #rotate-server-certificates: "true"
     - |-
       machine:
         time:
