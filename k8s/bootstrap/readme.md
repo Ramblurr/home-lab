@@ -88,3 +88,68 @@ Wait until `kubectl get pods -n flux-system` shows all ready.
 ```sh
 kubectl apply --server-side --kustomize ./k8s/flux/config
 ```
+
+
+### Test cilium connectivity
+
+```
+cilium status # all should be green
+cilium connectivity test
+```
+
+### Test BGP Load Balancer
+
+Don't forget to setup your router to handle BGP for the talos nodes.
+
+Use this manifest to test the BGP load balancer:
+
+```yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-lb
+  namespace: cilium-test
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    svc: test-lb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: cilium-test
+spec:
+  selector:
+    matchLabels:
+      svc: test-lb
+  template:
+    metadata:
+      labels:
+        svc: test-lb
+    spec:
+      containers:
+      - name: web
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+```
+
+```
+kubectl apply -f lb-bgp-test.yaml
+kubectl -n cilium-test get svc
+# wait until external ip is assigned
+curl http://<external ip>
+kubectl delete -f lb-bgp-test.yaml
+```
