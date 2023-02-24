@@ -87,8 +87,15 @@ controlPlane:
         path: /machine/kubelet/extraArgs
         value:
           feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,CronJobTimeZone=true,
-          #rotate-server-certificates: "false"
-          rotate-server-certificates: "true"
+          rotate-server-certificates: "false"
+          #rotate-server-certificates: "true"
+      - op: add
+        path: /cluster/apiServer/admissionControl/0/configuration/exemptions
+        value:
+          namespaces:
+            - kube-system
+            - cilium-test
+            - rook-ceph
       - op: add
         path: /cluster/controllerManager/extraArgs
         value:

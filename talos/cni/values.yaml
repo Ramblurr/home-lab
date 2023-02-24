@@ -1,9 +1,40 @@
+---
+cluster:
+  name: test-cluster
+  id: 0
+
+# autoDirectNodeRoutes enables installation of PodCIDR routes between worker
+# nodes if worker nodes share a common L2 network segment.
+# autoDirectNodeRoutes: true
+#
+# disable bgp in this boottrapping install
 bgp:
   enabled: false
+  announce:
+    loadbalancerIP: true
+containerRuntime:
+  integration: containerd
+endpointRoutes:
+  enabled: true
 hubble:
   enabled: false
 ipam:
   mode: kubernetes
 ipv4NativeRoutingCIDR: 10.244.0.0/16
+k8sServiceHost: 192.168.1.254
+k8sServicePort: 6443
+# kubeProxyReplacement enables kube-proxy replacement in Cilium BPF datapath
+kubeProxyReplacement: strict
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+localRedirectPolicy: true
+operator:
+  rollOutPods: true
+rollOutCiliumPods: true
 securityContext:
   privileged: true
+# direct routing
+tunnel: disabled
+ipv6:
+  enabled: false

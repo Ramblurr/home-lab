@@ -6,8 +6,8 @@ metadata:
   name: global-vars
   namespace: flux-system
 data:
-  CLUSTER_ID: test0
-  CLUSTER_NAME: Test Cluster 0
+  CLUSTER_ID: "0"
+  CLUSTER_NAME: test-cluster
   CLUSTER_APISERVER_ENDPOINT: 192.168.1.254
   CLUSTER_CIDR: 10.244.0.0/16
   CILIUM_BGP_LB_RANGE: "10.250.13.1-10.250.14.250"

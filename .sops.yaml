@@ -1,10 +1,12 @@
 ---
 creation_rules:
-  - pgp: >-
-      978C4D08058BA26EB97CB51820782DBCACFAACDA
-    path_regex: 'cluster/.*\.sops.ya?ml$'
+  - key_groups:
+    - age:
+        - age15j42dspmmwprjau6l48xp05d97s8ml5s3tjxrfwvm37tvuynssuqtsevkj
+        - age1ggz2hwet3042wxzw5dk6q58s0fv7tv6ugzgg3h6spugtfm3qnfeqpakprz
+      pgp:
+        - 978C4D08058BA26EB97CB51820782DBCACFAACDA
+    path_regex: 'k8s/.*\.sops.ya?ml$'
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData$|caBundle))'
-    age: age15j42dspmmwprjau6l48xp05d97s8ml5s3tjxrfwvm37tvuynssuqtsevkj
   - pgp: >-
-      978C4D08058BA26EB97CB51820782DBCACFAACDA
     age: age15j42dspmmwprjau6l48xp05d97s8ml5s3tjxrfwvm37tvuynssuqtsevkj
