@@ -2,3 +2,11 @@ home-cluster-kmaster1.yaml
 talosconfig
 home-cluster-kmaster0.yaml
 home-cluster-kmaster2.yaml
+test-cluster-kmaster0.yaml
+test-cluster-kmaster1.yaml
+test-cluster-kmaster2.yaml
+test-cluster-kmaster0-test.int.socozy.casa.yaml
+test-cluster-kmaster1.int.socozy.casa.yaml
+test-cluster-kmaster2.int.socozy.casa.yaml
+test-cluster-kmaster1-test.int.socozy.casa.yaml
+test-cluster-kmaster2-test.int.socozy.casa.yaml

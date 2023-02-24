@@ -1,0 +1,41 @@
+clusterEndpointIP: ENC[AES256_GCM,data:RHpPVIt2dhBSCWVyYQ==,iv:XTUFuldt26ZqgP1wQtM3U3DEaaPVtIYhzHMqxxLROkA=,tag:c1iMOMeGAATGParRkPPV1Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age15j42dspmmwprjau6l48xp05d97s8ml5s3tjxrfwvm37tvuynssuqtsevkj
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPWVpZLzFQcE9nazkvTkJG
+            OGZhL3V0bzk3K2MyTGxkOURZWENZVis1dVdjClUwYXdHdmdNY3NPUmZIK1gwV0tP
+            R0c2RFFub0FjaVo0YVhMRjhIS01iM2MKLS0tIHJnbnY1R2xFaHR3WDhPY3FmM2FC
+            WVNmempuODVOY2pGTGVUNzVhN1Y0RmMK9UA0Bg0+mcWSLTzEMTtekVu0JTUW4+S5
+            M8pvsnHENC4M1ZClb6+B1y+4bX7naZjkgY4WGk1kL85DvoIUkZTlvA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-02-24T14:11:37Z"
+    mac: ENC[AES256_GCM,data:1N9JaS0NkNb3PH/jWccjlrm4hhNMeEf7AUwEcPN2vqmd7Ep+bnSn5a47pCDwW7OuXikfbtEt2KI57P/3DO1BP6utrfUXEIXXQuLWRFGiCTKhLxgGeVQhlJY+6UfwVQqCjgpO8O/Sud69MJl6zUGOZ+/BOD22oJaOqh2c6ZwbL7c=,iv:8US5hu+rLQ+HYYzt95B2U5gz2fzbfJx//P+T5NxPKwY=,tag:5pHr6YIuqkNbG/U83rYp0Q==,type:str]
+    pgp:
+        - created_at: "2023-02-24T14:11:22Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            wcFMAz/c2vn977oWAQ//Wft9ADG/d5R1rsZ2eXY73MK3MHiJkJnk3M7vvUWEMxHK
+            4pRsjZ/TKbnLjWowdfn2VRjcNqINxO8qXGqipbl9DJJMbf7PnhQFubeRnQSOJ4iO
+            ekYL3FCZCXj9lo6N4l+o/a7wo7KOO+kaOMMOVeIB1TFhfx/NXTosTn5dHlRrJ81M
+            btUu9yT17Scyk8k58NetOSftzQ1hiXRb5PNNqm/4Nxq8NySIiAWbECCwdfL6jGqs
+            OhsePVVFzNHGh/SIRL0XxvKwkUBpZZVsB2PD9Ea13do5YrHxoVzM9ohtbW8Iql/A
+            KsJyecoEroYCrTOKN6QY9InrzqU2vzkHZRe0CAxwvIQooljLNDnpih/Fi05wJ5Dr
+            07PiRKLZutyPhItwK22SomL4nUBbh+4f6H7s4W4KTZKka1HoQTfpq4CAxEdgHLwf
+            3/qTvGbXMOebOfAQM6K4KmW8L2Hf0m8tK/H54YELWcKAPl6YcX4LhY9A9ZzFa0ij
+            h8InvRp2zN6uDwL44MFSlEtpQWg5ndrB3Mcttrt1K6YLdyEwn54L7nNWaCizRMLZ
+            4AZPGalJHVyL2JYjpd10ZvQ4mcNNCc9QHAV4TIWfA/zMarRlpALks0Wyt1bLd+Kt
+            6OBXyPOGGh02XTtUmHCxl+UBOnt/tJaK2XiqNRz7UMB1MeIIf7XzfLvQLIevfInS
+            UQHrKF4EJYNrZr4xJIVxERyYBsS+/Hex+0d9eoMA8UJhCqmnhAtpoZl48OzU/kj/
+            lyOyC02K0oopLeYzWGA/HpTXBMVf+8ckGYps/8ApD3D5vw==
+            =xPsm
+            -----END PGP MESSAGE-----
+          fp: 978C4D08058BA26EB97CB51820782DBCACFAACDA
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3

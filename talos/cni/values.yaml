@@ -5,9 +5,8 @@ cluster:
 
 # autoDirectNodeRoutes enables installation of PodCIDR routes between worker
 # nodes if worker nodes share a common L2 network segment.
-# autoDirectNodeRoutes: true
-#
-# disable bgp in this boottrapping install
+autoDirectNodeRoutes: true
+# disable bgp in this bootstrapping install
 bgp:
   enabled: false
   announce:

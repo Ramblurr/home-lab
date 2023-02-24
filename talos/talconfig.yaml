@@ -1,13 +1,25 @@
 ---
-clusterName: home-cluster
+clusterName: test-cluster
 talosVersion: v1.3.5
 kubernetesVersion: v1.26.0
-endpoint: https://192.168.1.104:6443
+endpoint: https://${clusterEndpointIP}:6443
 allowSchedulingOnMasters: true
 cniConfig:
   name: none
+  #name: custom
+  #urls:
+  #  - https://raw.githubusercontent.com/Ramblurr/home-lab/main/talos/cilium/quick-install.yaml
+additionalApiServerCertSans:
+  - ${clusterEndpointIP}
+additionalMachineCertSans:
+  - ${clusterEndpointIP}
+  - test-cluster.int.socozy.casa
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.96.0.0/12
 nodes:
-  - hostname: kmaster0
+  - hostname: kmaster0-test.int.socozy.casa
     disableSearchDomain: true
     ipAddress: 192.168.1.104
     installDiskSelector:
@@ -30,9 +42,9 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.1.1
         vip:
-          ip: 192.168.1.254
+          ip: ${clusterEndpointIP}
 
-  - hostname: kmaster1
+  - hostname: kmaster1-test.int.socozy.casa
     disableSearchDomain: true
     ipAddress: 192.168.1.106
     installDiskSelector:
@@ -55,8 +67,9 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.1.1
         vip:
-          ip: 192.168.1.254
-  - hostname: kmaster2
+          ip: ${clusterEndpointIP}
+
+  - hostname: kmaster2-test.int.socozy.casa
     disableSearchDomain: true
     ipAddress: 192.168.1.107
     installDiskSelector:
@@ -79,41 +92,67 @@ nodes:
           - network: 0.0.0.0/0
             gateway: 192.168.1.1
         vip:
-          ip: 192.168.1.254
+          ip: ${clusterEndpointIP}
+
 controlPlane:
   patches:
+    #- |-
+    #  - op: add
+    #    path: /cluster/apiServer/admissionControl/0/configuration/exemptions
+    #    value:
+    #      namespaces:
+    #        - kube-system
+    #        - cilium-test
+    #        - rook-ceph
     - |-
-      - op: add
-        path: /machine/kubelet/extraArgs
-        value:
-          feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,CronJobTimeZone=true,
-          rotate-server-certificates: "false"
-          #rotate-server-certificates: "true"
-      - op: add
-        path: /cluster/apiServer/admissionControl/0/configuration/exemptions
-        value:
-          namespaces:
-            - kube-system
-            - cilium-test
-            - rook-ceph
-      - op: add
-        path: /cluster/controllerManager/extraArgs
-        value:
-          bind-address: 0.0.0.0
-      - op: add
-        path: /cluster/scheduler/extraArgs
-        value:
-          bind-address: 0.0.0.0
-      - op: add
-        path: /cluster/proxy/extraArgs
-        value:
-          bind-address: 0.0.0.0
-    - |-
+      cluster:
+        allowSchedulingOnMasters: true
+        apiServer:
+          extraArgs:
+            feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+        controllerManager:
+          extraArgs:
+            feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+        discovery:
+          registries:
+            service:
+              disabled: true
+        proxy:
+          disabled: true
+          extraArgs:
+            feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
+        scheduler:
+          extraArgs:
+            feature-gates: MixedProtocolLBService=true,EphemeralContainers=True
       machine:
+        files:
+          - content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+            path: /etc/cri/conf.d/20-customization.part
+            op: create
+        sysctls:
+          fs.inotify.max_user_watches: "1048576"
+          fs.inotify.max_user_instances: "8192"
         time:
           disabled: false
           servers:
             - time.cloudflare.com
+        network:
+          extraHostEntries:
+            - ip: ${clusterEndpointIP}
+              aliases:
+                - test-cluster.int.socozy.casa
+        kubelet:
+          extraArgs:
+            feature-gates: GracefulNodeShutdown=true,MixedProtocolLBService=true,CronJobTimeZone=true
+            rotate-server-certificates: "false"
+            #rotate-server-certificates: "true"
+    - |-
+      - op: remove
+        path: /cluster/apiServer/admissionControl
 worker:
   patches:
     - |-

@@ -23,3 +23,9 @@ kubectl get no
 kubectl kustomize --enable-helm ./cni | kubectl apply -f -
 kubectl kustomize --enable-helm ./kubelet-csr-approver | kubectl apply -f -
 ```
+
+
+Then enable cert rotation
+Then regen and reapply talos config
+
+Wait until `kubectl get no` is ready and `cilium status` is green, then proceed with k8s/bootstrap/README
