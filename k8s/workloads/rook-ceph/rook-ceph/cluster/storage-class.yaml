@@ -2,19 +2,17 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: ceph-block-ec
+  name: ceph-block-testpool
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
 provisioner: rook-ceph.rbd.csi.ceph.com
 parameters:
   clusterID: rook-ceph
-
-  dataPool: pvcs_ec-data
-  pool: pvcs_ec-metadata
-
+  #dataPool: k8s-test_data
+  #pool: k8s-test_metadata
+  pool: testpool
   imageFormat: "2"
   imageFeatures: layering,fast-diff,object-map,deep-flatten,exclusive-lock
-
   csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
   csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
   csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
@@ -22,23 +20,5 @@ parameters:
   csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
   csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
   csi.storage.k8s.io/fstype: ext4
-reclaimPolicy: Delete
-allowVolumeExpansion: true
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: rook-cephfs-fast-low-redundancy
-provisioner: rook-ceph.cephfs.csi.ceph.com
-parameters:
-  clusterID: rook-ceph
-  fsName: cephfs_erasure_fast_low_redundancy
-  pool: cephfs_data_erasure_low_redundancy
-  csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-  csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-  csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-  csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-  csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
 reclaimPolicy: Delete
 allowVolumeExpansion: true
