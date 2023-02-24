@@ -81,6 +81,8 @@ sops -d k8s/flux/vars/global-secrets.yaml | kubectl apply -f -
 kubectl apply -f k8s/flux/vars/global-vars.yaml
 ```
 
+Wait until `kubectl get pods -n flux-system` shows all ready.
+
 ### Kick off Flux applying this repository
 
 ```sh

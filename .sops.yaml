@@ -8,5 +8,8 @@ creation_rules:
         - 978C4D08058BA26EB97CB51820782DBCACFAACDA
     path_regex: 'k8s/.*\.sops.ya?ml$'
     encrypted_regex: '((?i)(pass|secret($|[^N])|key|token|^data$|^stringData$|caBundle))'
-  - pgp: >-
-    age: age15j42dspmmwprjau6l48xp05d97s8ml5s3tjxrfwvm37tvuynssuqtsevkj
+  - key_groups:
+    - age:
+        - age15j42dspmmwprjau6l48xp05d97s8ml5s3tjxrfwvm37tvuynssuqtsevkj
+      pgp:
+        - 978C4D08058BA26EB97CB51820782DBCACFAACDA
