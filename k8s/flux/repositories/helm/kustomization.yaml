@@ -18,3 +18,4 @@ resources:
   - cilium-charts.yaml
   - ingress-nginx.yaml
   - jetstack.yaml
+  - hajimari.yaml
