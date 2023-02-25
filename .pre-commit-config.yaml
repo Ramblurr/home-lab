@@ -31,3 +31,6 @@ repos:
     rev: v8.15.3
     hooks:
       - id: gitleaks
+        args:
+          - --config
+          - .github/lint/gitleaks.toml
