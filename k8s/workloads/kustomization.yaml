@@ -5,3 +5,4 @@ resources:
   - kube-system
   - rook-ceph
   - networking
+  - monitoring
