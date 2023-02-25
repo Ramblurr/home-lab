@@ -23,13 +23,16 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    fullnameOverride: prometheus
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       config:
         global:
           resolve_timeout: 5m
         receivers:
+          #- name: heartbeat
+          #  webhook_configs:
+          #    - url: "https://heartbeat.uptimerobot.com/${SECRET_ALERTMANAGER_UPTIMEROBOT_HEARTBEAT_TOKEN}"
+          #      send_resolved: true
           - name: "null" # quote
           - name: pushover
             pushover_configs:
@@ -73,12 +76,12 @@ spec:
           repeat_interval: 12h
           receiver: pushover
           routes:
-            - receiver: heartbeat
-              group_wait: 0s
-              group_interval: 2m
-              repeat_interval: 2m
-              matchers:
-                - alertname =~ "Watchdog"
+            #- receiver: heartbeat
+            #  group_wait: 0s
+            #  group_interval: 2m
+            #  repeat_interval: 2m
+            #  matchers:
+            #    - alertname =~ "Watchdog"
             - receiver: "null" # quote
               matchers:
                 - alertname =~ "InfoInhibitor"
