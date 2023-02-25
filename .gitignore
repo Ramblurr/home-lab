@@ -29,3 +29,4 @@ talosconfig
 generated_values.yaml
 talos/*/charts
 github-deploy.key.*
+*.tfstate*
