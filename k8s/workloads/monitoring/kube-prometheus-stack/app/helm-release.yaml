@@ -93,7 +93,19 @@ spec:
               - severity = "warning"
             equal: ["alertname", "namespace"]
       ingress:
-        enabled: false
+        enabled: true
+        pathType: Prefix
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: |
+            10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          hajimari.io/appName: "Alert Manager"
+          hajimari.io/icon: mdi:alert-decagram-outline
+        hosts:
+          - &host "alertmanager.${SECRET_DOMAIN_INTERNAL}"
+        tls:
+          - hosts:
+              - *host
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -187,8 +199,19 @@ spec:
             memory: 100Mi
     prometheus:
       ingress:
-        enabled: false
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: |
+            10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+          hajimari.io/appName: Prometheus
+          hajimari.io/icon: simple-icons:prometheus
         pathType: Prefix
+        hosts:
+          - &host "prometheus.${SECRET_DOMAIN_INTERNAL}"
+        tls:
+          - hosts:
+              - *host
       thanosService:
         enabled: false
       thanosServiceMonitor:
