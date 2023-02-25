@@ -6,3 +6,5 @@ resources:
   - rook-ceph
   - networking
   - monitoring
+  - cert-manager
+  - flux-system
