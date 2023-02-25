@@ -16,3 +16,5 @@ resources:
   - rook-ceph-charts.yaml
   - weave-gitops.yaml
   - cilium-charts.yaml
+  - ingress-nginx.yaml
+  - jetstack.yaml
