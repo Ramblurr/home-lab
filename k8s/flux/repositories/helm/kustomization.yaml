@@ -20,3 +20,4 @@ resources:
   - jetstack.yaml
   - hajimari.yaml
   - stakater.yaml
+  - kubernetes-replicator-charts.yaml

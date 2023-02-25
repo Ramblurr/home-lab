@@ -29,10 +29,10 @@ spec:
     controller:
       extraEnvs:
         - name: TZ
-          value: "${TIMEZONE}"
+          value: "${SECRET_TIMEZONE}"
       service:
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${METALLB_INGRESS_ADDR}"
+          metallb.universe.tf/loadBalancerIPs: "${SVC_INGRESS_ADDR}"
         externalTrafficPolicy: Local
       publishService:
         enabled: true
@@ -63,7 +63,7 @@ spec:
       metrics:
         enabled: false
       extraArgs:
-        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
+        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-wildcard-tls"
       podAnnotations:
         configmap.reloader.stakater.com/reload: cloudflare-networks
       resources:
