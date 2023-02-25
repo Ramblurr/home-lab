@@ -5,7 +5,7 @@ Pre-reqs:
 * Create a Metadata server
 * Create a CephFS
 
-Make sure prometheus endpoint is enabled in proxmox via 
+Make sure prometheus endpoint is enabled in proxmox via
 ```bash
 ceph mgr module enable prometheus
 ```
