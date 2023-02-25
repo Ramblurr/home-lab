@@ -8,3 +8,4 @@ resources:
   - monitoring
   - cert-manager
   - flux-system
+  - default
