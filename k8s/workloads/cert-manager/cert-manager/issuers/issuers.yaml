@@ -13,9 +13,9 @@ spec:
       - dns01:
           cloudflare:
             email: "${SECRET_LETSENCRYPT_EMAIL}"
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-key
+              key: cloudflare_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
@@ -34,9 +34,9 @@ spec:
       - dns01:
           cloudflare:
             email: "${SECRET_LETSENCRYPT_EMAIL}"
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-key
+              key: cloudflare_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
@@ -55,9 +55,9 @@ spec:
       - dns01:
           cloudflare:
             email: "${SECRET_LETSENCRYPT_EMAIL}"
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-key
+              key: cloudflare_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN_INTERNAL}"
@@ -76,9 +76,9 @@ spec:
       - dns01:
           cloudflare:
             email: "${SECRET_LETSENCRYPT_EMAIL}"
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-key
+              key: cloudflare_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN_INTERNAL}"
@@ -97,9 +97,9 @@ spec:
       - dns01:
           cloudflare:
             email: "${SECRET_LETSENCRYPT_EMAIL}"
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-key
+              key: cloudflare_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN_WORK}"
@@ -118,9 +118,9 @@ spec:
       - dns01:
           cloudflare:
             email: "${SECRET_LETSENCRYPT_EMAIL}"
-            apiKeySecretRef:
+            apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-key
+              key: cloudflare_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN_WORK}"
